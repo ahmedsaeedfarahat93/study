@@ -1,0 +1,67 @@
+<div class="row" style="padding: 10px">
+  <div class="col-6">
+    <form #ProductForm="ngForm" (ngSubmit)="onSubmit(ProductForm)">
+      <div class="form-group">
+        <label for="titletxbx">Name</label>
+        <input type="text" class="form-control" id="Nametxbx" name="Name" placeholder="Name" [(ngModel)]="product.Name"
+          #Name="ngModel" required />
+      </div>
+
+      <div *ngIf="Name.touched && Name.invalid">
+        <div *ngIf="Name.errors?.required" class="alert alert-danger" role="alert">
+          Name is Reqiured
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pricetxbx">Price</label>
+        <input type="number" class="form-control" id="pricetxbx" name="price" placeholder="Price"
+          [(ngModel)]="product.Price" #price="ngModel" required [min]="1" />
+      </div>
+      <div *ngIf="price.touched && price.invalid">
+        <div *ngIf="price.errors?.required" class="alert alert-danger" role="alert">
+          Price is Reqiured
+        </div>
+
+        <div *ngIf="price.errors?.min" class="alert alert-danger" role="alert">
+          Minimum price is {{price.errors.requiredValue | currency }}
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="Categorydrpdown">Category</label>
+        <select id="Categorydrpdown" class="form-control" name="Categorydrpdown" [(ngModel)]="product.CategoryId"
+          #Categorydrpdown="ngModel" required>
+          <option value="">Select</option>
+          <option *ngFor="let category of categories" [value]="category.Id">{{category.CategoryName}}</option>
+        </select>
+        <div *ngIf="Categorydrpdown.touched && Categorydrpdown.invalid" class="alert alert-danger" role="alert">
+          <div *ngIf="Categorydrpdown.errors?.required">
+            Category is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Imagetxtbx">Image</label>
+        <input type="text" class="form-control" id="Imagetxtbx" name="Image" placeholder="Image Path"
+          [(ngModel)]="product.Image" #Image="ngModel" url />
+      </div>
+      <div class="alert alert-danger" *ngIf="Image.touched && Image.invalid" role="alert">
+        <div *ngIf="Image.errors.url">
+          Please Enter a vaild Url
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+  <div class="col-6">
+    <div class="card" *ngIf="product.Image" style="margin-top: 31px;width: 20rem;margin-left: 85px">
+      <img [src]="Image.value" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{Name.value}}</h5>
+        <p class="card-text">{{price.value | currency }}</p>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="/Home" routerActiveLink="Active" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item" *ngIf="user==null">
+        <a routerLink="/login" class="nav-link">Login</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/ShoppingCart" routerActiveLink="Active" class="nav-link">Shopping Cart</a>
+      </li>
+      <li [ngClass]="LiClass" (mouseover)="ShowLinks()" (mouseleave)="HideLinks()">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{userName}}
+        </a>
+        <div [ngClass]="DivClass" aria-labelledby="navbarDropdownMenuLink">
+          <a routerLink="/Home" class="dropdown-item">My Orders</a>
+          <a class="dropdown-item">Manage Orders</a>
+          <a class="dropdown-item">Manage Products</a>
+          <a class="dropdown-item">Manage Products</a>
+          <a class="dropdown-item" (click)="Logout()" *ngIf="user!=null">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
